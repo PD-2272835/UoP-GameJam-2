@@ -16,13 +16,37 @@ public class Health_Manager : MonoBehaviour
     {
         DrawHearts();
     }
+    
+    void TakeDamage(int _damage)
+    {
+        health -= _damage;
+        DrawHearts();
+
+        if (health <= 0)
+        {
+            return; //TODO: replace to invoke method for when player dies
+        }
+    }
+
+    void HealDamage(int _health)
+    {
+        health = (int)Mathf.Clamp(health + _health, 0f, maxHealth);
+
+    }
 
     void DrawHearts()
     {
         ClearHearts();
+
         for (int i = 0; i < maxHealth/4f; i++)
         {
             CreateHeart();
+        }
+
+        for (int i = 0; i < hearts.Count; i++)
+        {
+            int _heartStateRemainder = (int)Mathf.Clamp(health - (i * 4), 0, 4);
+            hearts[i].SetHeartState((HeartState)_heartStateRemainder);
         }
     }
 
@@ -41,7 +65,7 @@ public class Health_Manager : MonoBehaviour
         newHeart.transform.SetParent(transform);
 
         Heart heartComponent = newHeart.GetComponent<Heart>();
-        heartComponent.SetHeartState(HeartState.fullHeart);
+        heartComponent.SetHeartState(HeartState.emptyHeart);
         hearts.Add(heartComponent);
     }
 }
