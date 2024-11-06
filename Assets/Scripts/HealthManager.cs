@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health_Manager : MonoBehaviour
+public class HealthManager : MonoBehaviour
 {
     public GameObject heartPrefab;
     //list of references to each heart
