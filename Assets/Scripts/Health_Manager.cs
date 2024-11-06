@@ -62,10 +62,10 @@ public class Health_Manager : MonoBehaviour
     void CreateHeart()
     {
         GameObject _newHeart = Instantiate(heartPrefab);
-        newHeart.transform.SetParent(transform);
+        _newHeart.transform.SetParent(transform);
 
         Heart _heartComponent = _newHeart.GetComponent<Heart>();
         _heartComponent.SetHeartState(HeartState.emptyHeart);
-        hearts.Add(heartComponent);
+        hearts.Add(_heartComponent);
     }
 }
