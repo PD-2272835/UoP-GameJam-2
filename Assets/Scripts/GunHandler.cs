@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GunHandler : MonoBehaviour
 {
+    public SpriteRenderer spriteRenderer;
+
     private Vector3 mousePosition;
     private Vector3 targetPosition;
     private Vector2 targetDirection;
@@ -18,9 +20,17 @@ public class GunHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePosition = Input.mousePosition;
-        targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
-        targetDirection = new Vector3(transform.position.x - targetPosition.x, transform.position.y - targetPosition.y, 0f);
+        //Munchy2007 - https://discussions.unity.com/t/rotating-a-sprite-to-face-mouse-target/90164
+        targetPosition = cam.ScreenToWorldPoint(Input.mousePosition); // cursor position in world space
+        targetDirection = transform.position - targetPosition; //vector pointing from this object's position towards the cursor
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, targetDirection); //rotate parent object to face forward to target direction
         
-    }
+        if (transform.localEulerAngles.z > 180f)
+        {
+            spriteRenderer.flipY = true;
+        } else
+        {
+            spriteRenderer.flipY = false;
+        }
+    }   
 }
