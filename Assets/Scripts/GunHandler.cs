@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class GunHandler : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    public GameObject bullet;
 
-    private Vector3 mousePosition;
+    private GameObject gunAimer;
+    private SpriteRenderer gunSprite;
+    private Transform bulletOrigin;
+
     private Vector3 targetPosition;
     private Vector2 targetDirection;
-    private Camera cam;
+    private Camera cam; 
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
+        gunAimer = transform.GetChild(0).gameObject; //references the GunAimer gameobject
+        gunSprite = gunAimer.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        bulletOrigin = gunAimer.transform.GetChild(0).GetChild(0).GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -23,14 +29,20 @@ public class GunHandler : MonoBehaviour
         //Munchy2007 - https://discussions.unity.com/t/rotating-a-sprite-to-face-mouse-target/90164
         targetPosition = cam.ScreenToWorldPoint(Input.mousePosition); // cursor position in world space
         targetDirection = transform.position - targetPosition; //vector pointing from this object's position towards the cursor
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, targetDirection); //rotate parent object to face forward to target direction
+        gunAimer.transform.rotation = Quaternion.LookRotation(Vector3.forward, targetDirection); //rotate parent object to face forward to target direction
         
-        if (transform.localEulerAngles.z > 180f)
+        if (gunAimer.transform.localEulerAngles.z > 180f)
         {
-            spriteRenderer.flipY = true;
+            gunSprite.flipY = true;
         } else
         {
-            spriteRenderer.flipY = false;
+            gunSprite.flipY = false;
         }
-    }   
+    }
+    
+
+    public void FireBullet()
+    {
+        Instantiate(bullet, bulletOrigin.position, gunAimer.transform.rotation);
+    }
 }

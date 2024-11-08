@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GunHandler GunHandler;
+
     public float movementSpeed;
     private float verticalTranslation;
 
@@ -15,8 +17,10 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+
+
     //simple movement
-    void FixedUpdate()
+    void Update()
     {
         verticalTranslation = Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed;
         horizontalTranslation = Input.GetAxisRaw("Horizontal") * Time.deltaTime * movementSpeed;
@@ -31,5 +35,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.Translate(horizontalTranslation, verticalTranslation, 0f);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GunHandler.FireBullet();
+        }
     }
 }
