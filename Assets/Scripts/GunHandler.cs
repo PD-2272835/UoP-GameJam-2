@@ -7,7 +7,7 @@ public class GunHandler : MonoBehaviour
     public GameObject bullet;
 
     private GameObject gunAimer;
-    private SpriteRenderer gunSprite;
+    private Transform gunTransform;
     private Transform bulletOrigin;
 
     private Vector3 targetPosition;
@@ -19,7 +19,7 @@ public class GunHandler : MonoBehaviour
     {
         cam = Camera.main;
         gunAimer = transform.GetChild(0).gameObject; //references the GunAimer gameobject
-        gunSprite = gunAimer.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        gunTransform = gunAimer.transform.GetChild(0);
         bulletOrigin = gunAimer.transform.GetChild(0).GetChild(0).GetComponent<Transform>();
     }
 
@@ -33,13 +33,13 @@ public class GunHandler : MonoBehaviour
         
         if (gunAimer.transform.localEulerAngles.z > 180f)
         {
-            gunSprite.flipY = true;
+            gunTransform.localScale = new Vector3(1f, -1f, 1f);
         } else
         {
-            gunSprite.flipY = false;
+            gunTransform.localScale = Vector3.one;
         }
     }
-    
+
 
     public void FireBullet()
     {
