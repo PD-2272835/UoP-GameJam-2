@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GunHandler GunHandler;
-
     public float movementSpeed;
     private float verticalTranslation;
 
     private float horizontalTranslation;
     private SpriteRenderer spriteRenderer;
+    private GunHandler GunHandler;
+    //private HealthManager healthManager;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GunHandler = GetComponent<GunHandler>();
     }
-
-
 
     //simple movement
     void Update()

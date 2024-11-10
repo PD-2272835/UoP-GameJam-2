@@ -1,4 +1,5 @@
 //The following code snippet was adapted from BMo (youtube, 2022)
+//https://www.youtube.com/watch?v=5NViMw-ALAo
 
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ public class HealthManager : MonoBehaviour
         DrawHearts();
     }
     
-    void TakeDamage(int _damage)
+    public void TakeDamage(int _damage)
     {
         health -= _damage;
         DrawHearts();
@@ -28,13 +29,13 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void HealDamage(int _health)
+    public void HealDamage(int _health)
     {
         health = (int)Mathf.Clamp(health + _health, 0f, maxHealth);
 
     }
 
-    void DrawHearts()
+    private void DrawHearts()
     {
         ClearHearts();
 
@@ -50,7 +51,7 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void ClearHearts()
+    private void ClearHearts()
     {
         foreach (Transform _t in transform)
         {
@@ -59,7 +60,7 @@ public class HealthManager : MonoBehaviour
         hearts = new List<Heart>();
     }
 
-    void CreateHeart()
+    private void CreateHeart()
     {
         GameObject _newHeart = Instantiate(heartPrefab);
         _newHeart.transform.SetParent(transform);
