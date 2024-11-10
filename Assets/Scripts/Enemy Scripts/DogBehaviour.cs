@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class DogBehaviour : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    void FixedUpdate()
     {
-        
+        if (DistanceFromPlayer() < detectionDistance)
+        {
+            SetTargetPosition(player.position);
+            MoveToTargetPosition();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        Debug.Log("Collision");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            healthManager.TakeDamage(attackDamage);
+        }
     }
 }
