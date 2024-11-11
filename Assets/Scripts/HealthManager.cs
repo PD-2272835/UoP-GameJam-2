@@ -4,6 +4,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class HealthManager : MonoBehaviour
 {
@@ -13,10 +15,19 @@ public class HealthManager : MonoBehaviour
     
     public int health, maxHealth; //max should be a multiple of 4 as each heart is split into quarters
 
+    public UnityEvent OnDeath;
+
     void Start()
     {
         DrawHearts();
+        if (OnDeath == null)
+        {
+            OnDeath = new UnityEvent();
+        }
+
     }
+
+
     
     public void TakeDamage(int _damage)
     {
@@ -25,7 +36,7 @@ public class HealthManager : MonoBehaviour
 
         if (health <= 0)
         {
-            return; //TODO: replace to invoke method for when player dies
+            OnDeath.Invoke();
         }
     }
 
