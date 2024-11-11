@@ -8,7 +8,7 @@ public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
 
-    public Dropdown resolutionDropdown;
+    public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
@@ -22,7 +22,7 @@ public class SettingsMenu : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)   // we loop through each 'element' in our resolutions array
         {
-            string option = resolutions[i].width + "x" + resolutions[i].height; // for each element we create a tidy formatted string to display it
+            string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate + " Hz";
             options.Add(option); // before adding it to our options list
         }
 
