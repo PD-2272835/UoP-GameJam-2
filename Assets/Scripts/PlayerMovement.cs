@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalTranslation;
     private SpriteRenderer spriteRenderer;
     private GunHandler GunHandler;
-    //private HealthManager healthManager;
 
     void Start()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform playerPos;
-    private Vector3 playerScreenPos;
+    private Vector2 playerScreenPos;
     private Camera cam;
 
     private Vector2 lowerBound;
@@ -22,5 +22,9 @@ public class CameraFollow : MonoBehaviour
         playerScreenPos = cam.WorldToScreenPoint(playerPos.position);
         Debug.Log(playerScreenPos.ToString());
 
+        if (playerScreenPos.x < lowerBound.x)
+        {
+            cam.transform.position = playerPos.position;
+        }
     }
 }
